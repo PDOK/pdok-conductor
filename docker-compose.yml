@@ -1,29 +1,23 @@
-version: "3"
+version: "2"
 services:
   conductor-server:
-    image: local/conductor-server
-#    volumes:
-#      - /home/hans/wm/pdok/pdok-conductor:/app/config
+    image: local/conductor-server:latest
     environment:
-      - CONFIG_PROP=config-local.properties
+      - CONFIG_PROP=config.properties
     links:
-      - elasticsearch:es
+      - elasticsearch
       - redis
     ports:
       - 8080:8080
-    expose:
-      - 8080
   ui:
-    image: local/conductor-ui
+    image: local/conductor-ui:latest
     environment:
-      - WF_SERVER=http://conductor-server:8080/api
+      - WF_SERVER=http://conductor-server:8080/api/
     links:
       - conductor-server
     ports:
       - 5000:5000
   redis:
-    image: redis
+    image: redis:4
   elasticsearch:
     image: elasticsearch:2.4
-    ports:
-      - 9201:9200
