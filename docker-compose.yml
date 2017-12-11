@@ -1,7 +1,7 @@
 version: "2"
 services:
   conductor-server:
-    image: local/conductor-server:latest
+    image: pdok/pdok-conductor-server:latest
     environment:
       - CONFIG_PROP=config.properties
     links:
@@ -10,7 +10,7 @@ services:
     ports:
       - 8080:8080
   ui:
-    image: local/conductor-ui:latest
+    image: pdok/pdok-conductor-ui:latest
     environment:
       - WF_SERVER=http://conductor-server:8080/api/
     links:
